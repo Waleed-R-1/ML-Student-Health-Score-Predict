@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Mental Health Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>How is social media affecting student well-being?</h1>
+    <p>Enter a student's profile and daily habits. The model estimates a mental health score based on patterns in survey data.</p>
+  </header>
+
+  <main class="layout">
+    <form id="predict-form" class="form" novalidate>
+      <fieldset>
+        <legend>Student profile</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="10" max="100" step="1" placeholder="e.g. 20" required>
+            <small class="hint">10 to 100</small>
+            <span class="error" data-for="age"></span>
+          </div>
+          <div class="field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="" disabled selected>Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+            <span class="error" data-for="gender"></span>
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" list="countries" placeholder="Type or pick a country" autocomplete="off" required>
+            <datalist id="countries">
+              <option value="India"><option value="USA"><option value="Canada"><option value="Australia">
+              <option value="UK"><option value="Germany"><option value="Mexico"><option value="Turkey">
+              <option value="France"><option value="Other">
+            </datalist>
+            <small class="hint">Countries not in the list are grouped as Other</small>
+            <span class="error" data-for="country"></span>
+          </div>
+          <div class="field">
+            <label for="academic_level">Academic level</label>
+            <select id="academic_level" name="academic_level" required>
+              <option value="" disabled selected>Select level</option>
+              <option value="High">High school</option>
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Graduate">Graduate</option>
+            </select>
+            <span class="error" data-for="academic_level"></span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Social media use</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="most_used_platform">Most used platform</label>
+            <select id="most_used_platform" name="most_used_platform" required>
+              <option value="" disabled selected>Select platform</option>
+              <option>Facebook</option><option>Instagram</option><option>TikTok</option>
+              <option>YouTube</option><option>Snapchat</option><option>Twitter</option>
+              <option>LinkedIn</option><option>WhatsApp</option><option>WeChat</option>
+              <option>LINE</option><option>KakaoTalk</option><option>VKontakte</option>
+            </select>
+            <span class="error" data-for="most_used_platform"></span>
+          </div>
+          <div class="field">
+            <label for="purpose_of_use">Main purpose</label>
+            <select id="purpose_of_use" name="purpose_of_use" required>
+              <option value="" disabled selected>Select purpose</option>
+              <option>Networking</option><option>Education</option>
+              <option>Entertainment</option><option>News</option>
+            </select>
+            <span class="error" data-for="purpose_of_use"></span>
+          </div>
+          <div class="field">
+            <label for="avg_daily_usage_hours">Daily usage (hours)</label>
+            <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" placeholder="e.g. 4.5" required>
+            <span class="error" data-for="avg_daily_usage_hours"></span>
+          </div>
+          <div class="field">
+            <label for="daily_unlocks">Phone unlocks per day</label>
+            <input type="number" id="daily_unlocks" name="daily_unlocks" min="0" step="1" placeholder="e.g. 80" required>
+            <span class="error" data-for="daily_unlocks"></span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Daily routine</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="study_hours">Study (hours per day)</label>
+            <input type="number" id="study_hours" name="study_hours" min="0" max="24" step="0.1" placeholder="e.g. 3" required>
+            <span class="error" data-for="study_hours"></span>
+          </div>
+          <div class="field">
+            <label for="physical_activity_hours">Physical activity (hours per day)</label>
+            <input type="number" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.1" placeholder="e.g. 1" required>
+            <span class="error" data-for="physical_activity_hours"></span>
+          </div>
+          <div class="field">
+            <label for="sleep_hours_per_night">Sleep (hours per night)</label>
+            <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" placeholder="e.g. 7" required>
+            <span class="error" data-for="sleep_hours_per_night"></span>
+          </div>
+          <div class="field">
+            <label for="stress_level">Stress level</label>
+            <select id="stress_level" name="stress_level" required>
+              <option value="" disabled selected>Select stress level</option>
+              <option>Low</option><option>Medium</option>
+              <option>High</option><option>Very High</option>
+            </select>
+            <span class="error" data-for="stress_level"></span>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn" class="btn-primary">Predict score</button>
+        <button type="reset" id="reset-btn" class="btn-ghost">Clear form</button>
+      </div>
+    </form>
+
+    <aside class="result-panel" aria-live="polite">
+      <div id="state-idle" class="state">
+        <svg class="dial-idle" viewBox="0 0 200 120" aria-hidden="true">
+          <path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" class="dial-track"/>
+        </svg>
+        <h2>Your result will appear here</h2>
+        <p>Fill in every field, then choose Predict score.</p>
+      </div>
+
+      <div id="state-loading" class="state" hidden>
+        <div class="loader" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h2>Analyzing habits</h2>
+        <p>Waiting for the model to respond.</p>
+      </div>
+
+      <div id="state-result" class="state" hidden>
+        <svg class="dial" viewBox="0 0 200 120" role="img" aria-label="Score gauge">
+          <path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" class="dial-track"/>
+          <path id="dial-fill" d="M20 100 A80 80 0 0 1 180 100" pathLength="100" class="dial-fill"/>
+        </svg>
+        <div class="score"><span id="score-value">0.0</span><span class="score-max">/ 10</span></div>
+        <h2 id="score-title"></h2>
+        <p id="score-text"></p>
+        <p class="disclaimer">This is a statistical estimate, not a diagnosis. Talk to a qualified professional if you are concerned about someone's well-being.</p>
+      </div>
+
+      <div id="state-error" class="state state-error" hidden role="alert">
+        <div class="error-icon" aria-hidden="true">!</div>
+        <h2 id="error-title">Something went wrong</h2>
+        <p id="error-message"></p>
+        <ul id="error-list"></ul>
+        <button type="button" id="retry-btn" class="btn-ghost">Try again</button>
+      </div>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
