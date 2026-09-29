@@ -1,5 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
 venv/
 .venv/
-__pycache__/
-*.pyc
+env/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
 .env
+
+# Build/package files
+build/
+dist/
+*.egg-info/
