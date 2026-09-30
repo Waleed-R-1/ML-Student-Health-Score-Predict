@@ -24,7 +24,7 @@ const fields = {
   daily_unlocks:           { type: "int",   min: 0, label: "Phone unlocks" },
   study_hours:             { type: "float", min: 0, max: 24, label: "Study hours" },
   physical_activity_hours: { type: "float", min: 0, max: 24, label: "Physical activity" },
-  sleep_hours_per_night:   { type: "float", min: 0, max: 24, label: "Sleep hours" },
+  sleep_hours_per_night:   { type: "float", min: 2, max: 24, label: "Sleep hours" },
   stress_level:            { type: "text",  label: "Stress level" },
 };
 

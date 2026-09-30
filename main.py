@@ -32,7 +32,7 @@ class StudentData(BaseModel):
     daily_unlocks:int=Field(...,ge=0)
     study_hours:float=Field(...,ge=0,le=24)
     physical_activity_hours:float=Field(...,ge=0,le=24)
-    sleep_hours_per_night:float=Field(...,ge=0,le=24)
+    sleep_hours_per_night:float=Field(...,ge=2,le=24)
     stress_level:Literal['Medium','Low','Very High','High']
 
 
