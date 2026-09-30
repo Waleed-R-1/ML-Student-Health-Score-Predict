@@ -1,7 +1,7 @@
 "use strict";
 
 // Change this if your FastAPI server runs elsewhere.
-const API_URL = "https://ml-mental-health-score-predictor-web-production.up.railway.app/predict";
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 const TIMEOUT_MS = 20000;
 const MAX_SCORE = 10; // assumed scale of the model's output
 
